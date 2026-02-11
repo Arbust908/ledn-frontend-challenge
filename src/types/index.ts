@@ -15,7 +15,7 @@ export interface Planet {
   id: string;
 }
 
-export interface User {
+export interface Resident {
   name: string;
   height: string;
   mass: string;
@@ -42,7 +42,7 @@ export type Status = typeof Statuses[number];
 
 export interface Transaction {
   id: string;
-  user: User['id'];
+  user: Resident['id'];
   amount: number;
   currency: Currency;
   date: string;
@@ -59,8 +59,8 @@ export interface PlanetsResponse {
 }
 
 // @deprecate
-export interface UsersResponse {
-  users: User[];
+export interface ResidentsResponse {
+  users: Resident[];
 }
 
 // @deprecate
