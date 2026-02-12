@@ -146,14 +146,14 @@ const Navbar = styled.nav<{ $opened: boolean }>`
   padding: var(--mantine-spacing-md);
   border-right: 2px solid var(--mantine-color-default-hover);
   background: var(--mantine-color-body, #fff);
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  bottom: 0;
+  width: var(--navbar-width);
+  z-index: var(--mantine-z-index-app);
 
   @media (max-width: ${MOBILE_BREAKPOINT}) {
-    position: fixed;
-    top: var(--header-height);
-    left: 0;
-    bottom: 0;
-    width: var(--navbar-width);
-    z-index: var(--mantine-z-index-app);
     transform: ${({ $opened }) => ($opened ? 'translateX(0)' : 'translateX(-100%)')};
     transition: transform 0.25s ${({ $opened }) => ($opened ? 'ease-out' : 'ease-in')};
   }
@@ -182,6 +182,10 @@ const StyledNavLink = styled(RouterNavLink)`
 const Main = styled.main`
   padding: 1rem;
   overflow-y: auto;
+
+  @media (min-width: ${MOBILE_BREAKPOINT}) {
+    grid-column: 2;
+  }
 `;
 
 function Layout() {
@@ -206,9 +210,6 @@ function Layout() {
       <Navbar $opened={opened}>
         <StyledNavLink to="/" end onClick={close}>
           Summary
-        </StyledNavLink>
-        <StyledNavLink to="/transactions" onClick={close}>
-          Transactions
         </StyledNavLink>
       </Navbar>
 
