@@ -4,8 +4,7 @@ import { useMantineColorScheme } from '@mantine/core';
 import styled from 'styled-components';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import ExchangeRateDisplay from './ExchangeRateDisplay';
-
-const MOBILE_BREAKPOINT = '48em'; // matches Mantine sm --mantine-breakpoint-sm
+import { BREAKPOINTS } from '../utils/constants';
 
 const Wrapper = styled.div`
   --header-height: 100px;
@@ -16,7 +15,7 @@ const Wrapper = styled.div`
   grid-template-rows: var(--header-height) 1fr;
   grid-template-columns: 1fr;
 
-  @media (min-width: ${MOBILE_BREAKPOINT}) {
+  @media (min-width: ${BREAKPOINTS.TABLET}) {
     --header-height: 60px;
     grid-template-columns: var(--navbar-width) 1fr;
   }
@@ -39,7 +38,7 @@ const Header = styled.header`
     'brand brand'
     'burger conversion';
 
-  @media (min-width: ${MOBILE_BREAKPOINT}) {
+  @media (min-width: ${BREAKPOINTS.TABLET}) {
     grid-template-columns: 1fr auto;
     grid-template-areas: 'brand conversion';
   }
@@ -52,7 +51,7 @@ const BrandTitle = styled.h3`
   font-weight: var(--mantine-heading-font-weight);
   grid-area: brand;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}) {
+  @media (max-width: ${BREAKPOINTS.TABLET}) {
     text-align: center;
   }
 `;
@@ -70,7 +69,7 @@ const BurgerButton = styled.button`
   grid-area: burger;
   justify-self: start;
 
-  @media (max-width: ${MOBILE_BREAKPOINT}) {
+  @media (max-width: ${BREAKPOINTS.TABLET}) {
     display: flex;
   }
 `;
@@ -135,7 +134,7 @@ const Backdrop = styled.div<{ $visible: boolean }>`
   background: rgba(0, 0, 0, 0.5);
   z-index: var(--mantine-z-index-app);
 
-  @media (min-width: ${MOBILE_BREAKPOINT}) {
+  @media (min-width: ${BREAKPOINTS.TABLET}) {
     display: none;
   }
 
@@ -155,7 +154,7 @@ const Navbar = styled.nav<{ $opened: boolean }>`
   width: var(--navbar-width);
   z-index: var(--mantine-z-index-app);
 
-  @media (max-width: ${MOBILE_BREAKPOINT}) {
+  @media (max-width: ${BREAKPOINTS.TABLET}) {
     transform: ${({ $opened }) => ($opened ? 'translateX(0)' : 'translateX(-100%)')};
     transition: transform 0.25s ${({ $opened }) => ($opened ? 'ease-out' : 'ease-in')};
   }
@@ -207,7 +206,7 @@ const Main = styled.main`
   padding: 1rem;
   overflow-y: auto;
 
-  @media (min-width: ${MOBILE_BREAKPOINT}) {
+  @media (min-width: ${BREAKPOINTS.TABLET}) {
     grid-column: 2;
   }
 `;

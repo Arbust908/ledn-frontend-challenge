@@ -2,6 +2,7 @@ import Decimal from 'decimal.js';
 import styled from 'styled-components';
 import { useExchangeRate } from '../hooks/useExchangeRate';
 import { SkeletonLoader } from '../styles/shared';
+import { FINANCIAL_PRECISION } from '../utils/constants';
 
 const sharedStyles = `
   display: inline-block;
@@ -23,12 +24,14 @@ const Loader = styled(SkeletonLoader)`
   ${sharedStyles}
 `
 
+const { CRYPTO_AMOUNT } = FINANCIAL_PRECISION;
+
 function ExchangeRateDisplay() {
   const { data, isLoading } = useExchangeRate();
 
   // rate: Value of ICS in the GCS currency
   const formattedRate = data?.rate
-    ? new Decimal(data.rate).toFixed()
+    ? new Decimal(data.rate).toFixed(CRYPTO_AMOUNT)
     : '—';
 
   if (isLoading) {

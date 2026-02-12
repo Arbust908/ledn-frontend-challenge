@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { X, ChevronDown } from 'lucide-react';
 import type { Planet } from '../types';
 import { SkeletonLoader } from '../styles/shared';
+import { BREAKPOINTS } from '../utils/constants';
 
 interface PlanetFilterProps {
   searchValue: string;
@@ -31,7 +32,7 @@ const FilterContainer = styled.div`
     "climate climate"
     "terrain terrain";
 
-  @media (min-width: 768px) {
+  @media (min-width: ${BREAKPOINTS.TABLET}) {
     grid-template-areas:
       "search search"
       "climate terrain";

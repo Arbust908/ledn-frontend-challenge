@@ -17,6 +17,7 @@ const FilterGroup = styled.fieldset`
   border-radius: var(--mantine-radius-md);
   border: 1px solid var(--mantine-color-default-border);
   position: relative;
+  flex-shrink: 0;
 `;
 
 const Legend = styled.legend`
