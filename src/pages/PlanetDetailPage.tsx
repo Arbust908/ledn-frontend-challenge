@@ -33,7 +33,7 @@ const TransactionsHeader = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: var(--mantine-spacing-md);
+  margin-top: var(--mantine-spacing-md);
 `;
 
 const BackButton = styled.button`
