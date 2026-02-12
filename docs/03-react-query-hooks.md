@@ -1,7 +1,7 @@
-# React Query Hooks
+# Tan Stack Query Hooks
 
 ## Context
-Custom React Query hooks for all API endpoints. Implements cache optimization patterns including initialData to reduce network requests by checking the query cache first.
+Custom Tan Stack Query hooks for all API endpoints. Implements cache optimization patterns including initialData to reduce network requests by checking the query cache first.
 
 ## Dependencies
 - `@tanstack/react-query` 5.62.0
@@ -11,7 +11,7 @@ Custom React Query hooks for all API endpoints. Implements cache optimization pa
 
 ## Prompt
 
-> Create custom React Query hooks for all API endpoints with cache optimization patterns.
+> Create custom Tan Stack Query hooks for all API endpoints with cache optimization patterns.
 >
 > **Create 4 hook files:**
 >
@@ -116,7 +116,7 @@ Four hook files:
 - `src/hooks/useTransactions.ts`
 - `src/hooks/useUsers.ts`
 
-Each with properly typed React Query hooks and cache optimization patterns.
+Each with properly typed Tan Stack Query hooks and cache optimization patterns.
 
 ## Key Constraints
 - Import from '@tanstack/react-query' (v5 syntax)

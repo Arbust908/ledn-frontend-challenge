@@ -97,4 +97,4 @@ Two files:
 - Always destructure and return just the data
 - JSON.stringify userIds array for the multi-user endpoint
 - Use Partial<Transaction> for batch update (allows partial updates)
-- Export all functions so they can be used in React Query hooks
+- Export all functions so they can be used in Tan Stack Query hooks
