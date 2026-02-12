@@ -2,6 +2,7 @@
 import { useMemo } from 'react';
 import styled from 'styled-components';
 import type { Planet } from '../types';
+import { SkeletonLoader } from '../styles/shared';
 
 interface PlanetFilterProps {
   searchValue: string;
@@ -11,7 +12,13 @@ interface PlanetFilterProps {
   terrainValue: string;
   onTerrainChange: (value: string) => void;
   planets: Planet[];
+  isLoading?: boolean;
 }
+
+const SkeletonSelect = styled(SkeletonLoader)`
+  border-radius: var(--mantine-radius-md);
+  height: 42px;
+`;
 
 const FilterContainer = styled.div`
   display: grid;
@@ -95,6 +102,7 @@ function PlanetFilter({
   terrainValue,
   onTerrainChange,
   planets,
+  isLoading = false,
 }: PlanetFilterProps) {
   const climates = useMemo(() => extractUniqueValues(planets, 'climate'), [planets]);
   const terrains = useMemo(() => extractUniqueValues(planets, 'terrain'), [planets]);
@@ -108,26 +116,35 @@ function PlanetFilter({
         onChange={(e) => onSearchChange(e.target.value)}
         style={{ gridArea: 'search' }}
       />
-      <SelectInput
-        value={climateValue}
-        onChange={(e) => onClimateChange(e.target.value)}
-        style={{ gridArea: 'climate' }}
-      >
-        <option value="">All climates</option>
-        {climates.map((c) => (
-          <option key={c} value={c}>{c}</option>
-        ))}
-      </SelectInput>
-      <SelectInput
-        value={terrainValue}
-        onChange={(e) => onTerrainChange(e.target.value)}
-        style={{ gridArea: 'terrain' }}
-      >
-        <option value="">All terrains</option>
-        {terrains.map((t) => (
-          <option key={t} value={t}>{t}</option>
-        ))}
-      </SelectInput>
+      {isLoading ? (
+        <>
+          <SkeletonSelect style={{ gridArea: 'climate' }} />
+          <SkeletonSelect style={{ gridArea: 'terrain' }} />
+        </>
+      ) : (
+        <>
+          <SelectInput
+            value={climateValue}
+            onChange={(e) => onClimateChange(e.target.value)}
+            style={{ gridArea: 'climate' }}
+          >
+            <option value="">All climates</option>
+            {climates.map((c) => (
+              <option key={c} value={c}>{c}</option>
+            ))}
+          </SelectInput>
+          <SelectInput
+            value={terrainValue}
+            onChange={(e) => onTerrainChange(e.target.value)}
+            style={{ gridArea: 'terrain' }}
+          >
+            <option value="">All terrains</option>
+            {terrains.map((t) => (
+              <option key={t} value={t}>{t}</option>
+            ))}
+          </SelectInput>
+        </>
+      )}
     </FilterContainer>
   );
 }
