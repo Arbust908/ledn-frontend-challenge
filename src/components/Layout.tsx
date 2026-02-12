@@ -1,16 +1,24 @@
 import { useState, useCallback } from 'react';
-import { Outlet, NavLink as RouterNavLink } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useMantineColorScheme } from '@mantine/core';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
+import { motion } from 'motion/react';
 import { Sun, Moon, Monitor } from 'lucide-react';
 import ExchangeRateDisplay from './ExchangeRateDisplay';
 import { BREAKPOINTS } from '../utils/constants';
+
+const GlobalStyle = createGlobalStyle`
+  html, body {
+    overflow: hidden;
+  }
+`;
 
 const Wrapper = styled.div`
   --header-height: 100px;
   --navbar-width: 220px;
 
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow: hidden;
   display: grid;
   grid-template-rows: var(--header-height) 1fr;
   grid-template-columns: 1fr;
@@ -160,24 +168,34 @@ const Navbar = styled.nav<{ $opened: boolean }>`
   }
 `;
 
-const StyledNavLink = styled(RouterNavLink)`
+const NavItemWrapper = styled.button`
+  all: unset;
   display: block;
+  position: relative;
   padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
   border-radius: var(--mantine-radius-sm);
   text-decoration: none;
   color: inherit;
   font-size: var(--mantine-font-size-sm);
-  transition: background 0.15s;
+  cursor: pointer;
+  transition: color 0.15s;
 
   &:hover {
     background: var(--mantine-color-default-hover);
   }
 
-  &.active {
-    background: var(--mantine-primary-color-light, #e7f5ff);
+  &[data-active='true'] {
     color: var(--mantine-primary-color-filled, #1c7ed6);
     font-weight: 500;
   }
+`;
+
+const ActiveIndicator = styled(motion.div)`
+  position: absolute;
+  inset: 0;
+  border-radius: var(--mantine-radius-sm);
+  background: var(--mantine-primary-color-light, #e7f5ff);
+  z-index: -1;
 `;
 
 const NavSpacer = styled.div`
@@ -205,6 +223,7 @@ const ColorModeButton = styled.button`
 const Main = styled.main`
   padding: 1rem;
   overflow-y: auto;
+  scrollbar-gutter: stable both-edges;
 
   @media (min-width: ${BREAKPOINTS.TABLET}) {
     grid-column: 2;
@@ -217,11 +236,28 @@ const COLOR_MODE_ICONS: Record<string, { icon: React.ReactNode; next: string }> 
   auto: { icon: <Monitor size={16} />, next: 'light' },
 };
 
+interface NavItem {
+  id: string;
+  label: string;
+  to: string;
+  match: (pathname: string) => boolean;
+}
+
+const NAV_ITEMS: NavItem[] = [
+  { id: 'summary', label: 'Summary', to: '/', match: (p) => p === '/' },
+  { id: 'planets', label: 'Planets', to: '/planets/1', match: (p) => p.startsWith('/planets') },
+  { id: 'transactions', label: 'Transactions', to: '/transactions', match: (p) => p.startsWith('/transactions') },
+];
+
 function Layout() {
   const [opened, setOpened] = useState(false);
   const toggle = useCallback(() => setOpened((o) => !o), []);
   const close = useCallback(() => setOpened(false), []);
   const { colorScheme, setColorScheme } = useMantineColorScheme();
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const activeId = NAV_ITEMS.find((item) => item.match(location.pathname))?.id ?? '';
 
   const cycleColorScheme = useCallback(() => {
     const next = COLOR_MODE_ICONS[colorScheme]?.next ?? 'light';
@@ -229,6 +265,8 @@ function Layout() {
   }, [colorScheme, setColorScheme]);
 
   return (
+    <>
+    <GlobalStyle />
     <Wrapper>
       <Header>
         <BrandTitle>Coruscant Bank</BrandTitle>
@@ -243,9 +281,27 @@ function Layout() {
       <Backdrop $visible={opened} onClick={close} />
 
       <Navbar $opened={opened}>
-        <StyledNavLink to="/" end onClick={close}>
-          Summary
-        </StyledNavLink>
+        {NAV_ITEMS.map((item) => {
+          const isActive = item.id === activeId;
+          return (
+            <NavItemWrapper
+              key={item.id}
+              data-active={isActive}
+              onClick={() => {
+                navigate(item.to);
+                close();
+              }}
+            >
+              {isActive && (
+                <ActiveIndicator
+                  layoutId="nav-active-indicator"
+                  transition={{ type: 'spring', stiffness: 500, damping: 35 }}
+                />
+              )}
+              {item.label}
+            </NavItemWrapper>
+          );
+        })}
 
         <NavSpacer />
 
@@ -258,6 +314,7 @@ function Layout() {
         <Outlet />
       </Main>
     </Wrapper>
+    </>
   );
 }
 

@@ -1,5 +1,6 @@
 // Written by ClaudeCode. Edited by hand for better logic
 import styled from 'styled-components';
+import { motion } from 'motion/react';
 import type { Transaction, Status } from '../types';
 import { useResident } from '../hooks/useResident';
 import { useExchangeRate } from '../hooks/useExchangeRate';
@@ -42,7 +43,7 @@ const StatusBadge = styled.span<{ $status: Status }>`
   color: ${props => statusConfig[props.$status].color};
 `;
 
-const Row = styled.tr`
+const Row = styled(motion.tr)`
   @media (max-width: ${BREAKPOINTS.TABLET}) {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -123,9 +124,14 @@ function TransactionRow({ transaction }: TransactionRowProps) {
 
   if (residentLoading || exchangeRateLoading) {
     return (
-      <tr>
+      <Row
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        layout
+      >
         <td colSpan={4}><SkeletonLoader /></td>
-      </tr>
+      </Row>
     );
   }
 
@@ -138,7 +144,13 @@ function TransactionRow({ transaction }: TransactionRowProps) {
   const StatusIcon = statusConfig[transaction.status].icon;
 
   return (
-    <Row>
+    <Row
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -8 }}
+      transition={{ duration: 0.2 }}
+      layout
+    >
       <NameCell>{resident?.name}</NameCell>
       <IcsCell $highlight={!isGCS}>{icsAmount.toFixed(CRYPTO_AMOUNT)}</IcsCell>
       <GcsCell $highlight={isGCS}>{gcsAmount.toFixed(CRYPTO_AMOUNT)}</GcsCell>
