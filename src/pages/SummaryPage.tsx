@@ -12,7 +12,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--mantine-spacing-lg);
-  max-width: 1440px;
+  max-width: 1328px; /* 4 cards at 320px + 3 gaps at 16px. Will lok for a non magic number fix */
   margin: 0 auto;
 `;
 
