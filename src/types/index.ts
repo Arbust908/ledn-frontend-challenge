@@ -50,31 +50,5 @@ export interface Transaction {
 }
 
 export interface ExchangeRate {
-  rate: string; // From GSC to ICS
-}
-
-// @deprecate
-export interface PlanetsResponse {
-  planets: Planet[];
-}
-
-// @deprecate
-export interface ResidentsResponse {
-  users: Resident[];
-}
-
-// @deprecate
-export interface TransactionsResponse {
-  transactions: Transaction[];
-}
-
-// @deprecate Is it needed?
-export interface TransactionFilters {
-  status: string;
-  currency: string;
-  dateFrom: string;
-  dateTo: string;
-  amountMin: string;
-  amountMax: string;
-  userSearch: string;
+  rate: string; // Value of ICS in the GCS currency (how many GCS = 1 ICS)
 }
