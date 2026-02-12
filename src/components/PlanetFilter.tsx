@@ -1,6 +1,7 @@
 
 import { useMemo } from 'react';
 import styled from 'styled-components';
+import { X, ChevronDown } from 'lucide-react';
 import type { Planet } from '../types';
 import { SkeletonLoader } from '../styles/shared';
 
@@ -49,6 +50,7 @@ const baseInputStyles = `
   color: var(--mantine-color-default-color);
   outline: none;
   transition: all 0.2s ease;
+  width: 100%;
 
   &:hover {
     border-color: var(--mantine-color-default-hover);
@@ -62,6 +64,7 @@ const baseInputStyles = `
 
 const SearchInput = styled.input`
   ${baseInputStyles}
+  padding-right: 36px;
   &::placeholder {
     color: var(--mantine-color-placeholder);
   }
@@ -71,9 +74,57 @@ const SelectInput = styled.select`
   ${baseInputStyles}
   cursor: pointer;
   appearance: none;
-  background-repeat: no-repeat;
-  background-position: right var(--mantine-spacing-sm) center;
-  padding-right: calc(var(--mantine-spacing-md) + 16px);
+  padding-right: 88px;
+`;
+
+const InputWrapper = styled.div`
+  position: relative;
+  display: flex;
+  align-items: center;
+`;
+
+const ResetButton = styled.button`
+  position: absolute;
+  right: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: var(--mantine-color-default-hover);
+  border-radius: var(--mantine-radius-sm);
+  cursor: pointer;
+  color: var(--mantine-color-dimmed);
+  transition: all 0.15s ease;
+
+  &:hover {
+    background: var(--mantine-color-default-border);
+    color: var(--mantine-color-default-color);
+  }
+`;
+
+const SelectIcons = styled.div`
+  position: absolute;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  pointer-events: none;
+`;
+
+const SelectResetButton = styled(ResetButton)`
+  position: static;
+  pointer-events: auto;
+`;
+
+const ChevronIcon = styled.span`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  color: var(--mantine-color-dimmed);
 `;
 
 function normalizeText(text: string) { return text.trim().toLowerCase() }
@@ -109,13 +160,19 @@ function PlanetFilter({
 
   return (
     <FilterContainer>
-      <SearchInput
-        type="text"
-        placeholder="Search planets..."
-        value={searchValue}
-        onChange={(e) => onSearchChange(e.target.value)}
-        style={{ gridArea: 'search' }}
-      />
+      <InputWrapper style={{ gridArea: 'search' }}>
+        <SearchInput
+          type="text"
+          placeholder="Search planets..."
+          value={searchValue}
+          onChange={(e) => onSearchChange(e.target.value)}
+        />
+        {searchValue && (
+          <ResetButton onClick={() => onSearchChange('')} aria-label="Clear search">
+            <X size={14} />
+          </ResetButton>
+        )}
+      </InputWrapper>
       {isLoading ? (
         <>
           <SkeletonSelect style={{ gridArea: 'climate' }} />
@@ -123,26 +180,48 @@ function PlanetFilter({
         </>
       ) : (
         <>
-          <SelectInput
-            value={climateValue}
-            onChange={(e) => onClimateChange(e.target.value)}
-            style={{ gridArea: 'climate' }}
-          >
-            <option value="">All climates</option>
-            {climates.map((c) => (
-              <option key={c} value={c}>{c}</option>
-            ))}
-          </SelectInput>
-          <SelectInput
-            value={terrainValue}
-            onChange={(e) => onTerrainChange(e.target.value)}
-            style={{ gridArea: 'terrain' }}
-          >
-            <option value="">All terrains</option>
-            {terrains.map((t) => (
-              <option key={t} value={t}>{t}</option>
-            ))}
-          </SelectInput>
+          <InputWrapper style={{ gridArea: 'climate' }}>
+            <SelectInput
+              value={climateValue}
+              onChange={(e) => onClimateChange(e.target.value)}
+            >
+              <option value="">All climates</option>
+              {climates.map((c) => (
+                <option key={c} value={c}>{c}</option>
+              ))}
+            </SelectInput>
+            <SelectIcons>
+              {climateValue && (
+                <SelectResetButton onClick={() => onClimateChange('')} aria-label="Reset climate filter">
+                  <X size={14} />
+                </SelectResetButton>
+              )}
+              <ChevronIcon>
+                <ChevronDown size={16} />
+              </ChevronIcon>
+            </SelectIcons>
+          </InputWrapper>
+          <InputWrapper style={{ gridArea: 'terrain' }}>
+            <SelectInput
+              value={terrainValue}
+              onChange={(e) => onTerrainChange(e.target.value)}
+            >
+              <option value="">All terrains</option>
+              {terrains.map((t) => (
+                <option key={t} value={t}>{t}</option>
+              ))}
+            </SelectInput>
+            <SelectIcons>
+              {terrainValue && (
+                <SelectResetButton onClick={() => onTerrainChange('')} aria-label="Reset terrain filter">
+                  <X size={14} />
+                </SelectResetButton>
+              )}
+              <ChevronIcon>
+                <ChevronDown size={16} />
+              </ChevronIcon>
+            </SelectIcons>
+          </InputWrapper>
         </>
       )}
     </FilterContainer>

@@ -12,6 +12,8 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: var(--mantine-spacing-lg);
+  max-width: 1440px;
+  margin: 0 auto;
 `;
 
 const Title = styled.h2`
@@ -22,8 +24,9 @@ const Title = styled.h2`
 
 const PlanetGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(200px, 320px));
   gap: var(--mantine-spacing-md);
+  justify-content: center;
 `;
 
 const SkeletonLine = styled(SkeletonLoader)`
@@ -48,8 +51,7 @@ function SummaryPage() {
   const [climateFilter, setClimateFilter] = useState('');
   const [terrainFilter, setTerrainFilter] = useState('');
 
-  const { data: planets, /* isLoading */ } = usePlanets();
-  const isLoading = true;
+  const { data: planets, isLoading } = usePlanets();
 
   const allPlanets = planets ?? [];
 
