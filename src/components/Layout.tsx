@@ -1,6 +1,8 @@
 import { useState, useCallback } from 'react';
 import { Outlet, NavLink as RouterNavLink } from 'react-router-dom';
+import { useMantineColorScheme } from '@mantine/core';
 import styled from 'styled-components';
+import { Sun, Moon, Monitor } from 'lucide-react';
 import ExchangeRateDisplay from './ExchangeRateDisplay';
 
 const MOBILE_BREAKPOINT = '48em'; // matches Mantine sm --mantine-breakpoint-sm
@@ -179,6 +181,28 @@ const StyledNavLink = styled(RouterNavLink)`
   }
 `;
 
+const NavSpacer = styled.div`
+  flex: 1;
+`;
+
+const ColorModeButton = styled.button`
+  display: flex;
+  align-items: center;
+  gap: var(--mantine-spacing-xs);
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-md);
+  border-radius: var(--mantine-radius-sm);
+  border: 1px solid var(--mantine-color-default-border);
+  background: var(--mantine-color-default-hover);
+  color: inherit;
+  font-size: var(--mantine-font-size-sm);
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: var(--mantine-color-default-border);
+  }
+`;
+
 const Main = styled.main`
   padding: 1rem;
   overflow-y: auto;
@@ -188,10 +212,22 @@ const Main = styled.main`
   }
 `;
 
+const COLOR_MODE_ICONS: Record<string, { icon: React.ReactNode; next: string }> = {
+  light: { icon: <Sun size={16} />, next: 'dark' },
+  dark: { icon: <Moon size={16} />, next: 'auto' },
+  auto: { icon: <Monitor size={16} />, next: 'light' },
+};
+
 function Layout() {
   const [opened, setOpened] = useState(false);
   const toggle = useCallback(() => setOpened((o) => !o), []);
   const close = useCallback(() => setOpened(false), []);
+  const { colorScheme, setColorScheme } = useMantineColorScheme();
+
+  const cycleColorScheme = useCallback(() => {
+    const next = COLOR_MODE_ICONS[colorScheme]?.next ?? 'light';
+    setColorScheme(next as 'light' | 'dark' | 'auto');
+  }, [colorScheme, setColorScheme]);
 
   return (
     <Wrapper>
@@ -211,6 +247,12 @@ function Layout() {
         <StyledNavLink to="/" end onClick={close}>
           Summary
         </StyledNavLink>
+
+        <NavSpacer />
+
+        <ColorModeButton onClick={cycleColorScheme} aria-label="Toggle color mode">
+          {COLOR_MODE_ICONS[colorScheme]?.icon ?? <Monitor size={16} />} {colorScheme}
+        </ColorModeButton>
       </Navbar>
 
       <Main>

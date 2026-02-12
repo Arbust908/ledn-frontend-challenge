@@ -15,6 +15,7 @@ const Header = styled.div`
   justify-content: space-between;
   align-items: center;
   margin-bottom: var(--mantine-spacing-xs);
+  position: relative;
 `;
 
 const Title = styled.h4`
@@ -26,12 +27,15 @@ const Title = styled.h4`
 `;
 
 const Badge = styled.span`
-  background: var(--mantine-color-blue-light);
-  color: var(--mantine-color-blue-light-color);
+  background: var(--mantine-color-blue-filled);
+  color: var(--mantine-color-dark-filled);
   padding: 0.25rem 0.5rem;
   border-radius: var(--mantine-radius-sm);
   font-size: var(--mantine-font-size-xs);
   font-weight: 500;
+  position: absolute;
+  top: -2em;
+  right: -2em;
 `;
 
 const DetailText = styled.dl`
