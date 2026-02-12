@@ -1,3 +1,5 @@
+// Made with ClaudeCode
+
 import client from './client';
 import type { Planet, Resident, Transaction, ExchangeRate } from '../types';
 

@@ -1,3 +1,4 @@
+// Made by ClaudeCode
 // Centralized cache configuration for React Query hooks
 // Based on data change frequency and usage patterns
 

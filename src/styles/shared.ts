@@ -1,3 +1,4 @@
+// Written by ClaudeCode
 import styled, { keyframes } from 'styled-components';
 
 export const shimmer = keyframes`
