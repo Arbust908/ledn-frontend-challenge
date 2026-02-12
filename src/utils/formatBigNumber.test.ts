@@ -1,7 +1,6 @@
 import { formatBigNumber } from './formatBigNumber';
 
 describe('formatBigNumber', () => {
-  // basic ranges
   it('returns small numbers as-is', () => {
     expect(formatBigNumber(42)).toBe('42');
     expect(formatBigNumber(999)).toBe('999');
