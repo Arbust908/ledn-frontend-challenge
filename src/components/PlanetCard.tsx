@@ -18,7 +18,7 @@ const Header = styled.div`
   position: relative;
 `;
 
-const Title = styled.h4`
+const Title = styled.h3`
   font-size: var(--mantine-h4-font-size);
   line-height: var(--mantine-h4-line-height);
   font-weight: var(--mantine-h4-font-weight);
@@ -27,7 +27,7 @@ const Title = styled.h4`
 `;
 
 const Badge = styled.span`
-  background: var(--mantine-color-blue-filled);
+  background: var(--mantine-color-violet-light-color);
   color: var(--mantine-color-dark-filled);
   padding: 0.25rem 0.5rem;
   border-radius: var(--mantine-radius-sm);
@@ -41,7 +41,7 @@ const Badge = styled.span`
 const DetailText = styled.dl`
   font-size: var(--mantine-font-size-sm);
   line-height: var(--mantine-line-height-sm);
-  color: var(--mantine-color-dimmed);
+  color: var(--mantine-color-violet-light-color);
   margin: 0.25rem 0;
 
    &:not(:last-child) {

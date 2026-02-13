@@ -165,6 +165,7 @@ function PlanetFilter({
         <SearchInput
           type="text"
           placeholder="Search planets..."
+          aria-label="Search planets"
           value={searchValue}
           onChange={(e) => onSearchChange(e.target.value)}
         />
@@ -185,6 +186,7 @@ function PlanetFilter({
             <SelectInput
               value={climateValue}
               onChange={(e) => onClimateChange(e.target.value)}
+              aria-label="Filter by climate"
             >
               <option value="">All climates</option>
               {climates.map((c) => (
@@ -206,6 +208,7 @@ function PlanetFilter({
             <SelectInput
               value={terrainValue}
               onChange={(e) => onTerrainChange(e.target.value)}
+              aria-label="Filter by terrain"
             >
               <option value="">All terrains</option>
               {terrains.map((t) => (

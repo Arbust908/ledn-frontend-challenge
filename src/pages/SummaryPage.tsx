@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { usePlanets } from '../hooks/usePlanets';
+import { useDebouncedValue } from '../hooks/useDebouncedValue';
 import PlanetCard from '../components/PlanetCard';
 import PlanetFilter from '../components/PlanetFilter';
 import { SkeletonLoader } from '../styles/shared';
@@ -49,6 +50,7 @@ function SkeletonCard() {
 
 function SummaryPage() {
   const [searchQuery, setSearchQuery] = useState('');
+  const debouncedSearch = useDebouncedValue(searchQuery, 150);
   const [climateFilter, setClimateFilter] = useState('');
   const [terrainFilter, setTerrainFilter] = useState('');
 
@@ -57,7 +59,7 @@ function SummaryPage() {
   const allPlanets = planets ?? [];
 
   const filteredPlanets = allPlanets.filter(planet => {
-    const matchesSearch = planet.name.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesSearch = planet.name.toLowerCase().includes(debouncedSearch.toLowerCase());
     const matchesClimate = !climateFilter || planet.climate.toLowerCase().includes(climateFilter);
     const matchesTerrain = !terrainFilter || planet.terrain.toLowerCase().includes(terrainFilter);
     return matchesSearch && matchesClimate && matchesTerrain;

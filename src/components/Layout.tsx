@@ -181,11 +181,11 @@ const NavItemWrapper = styled.button`
   transition: color 0.15s;
 
   &:hover {
-    background: var(--mantine-color-default-hover);
+    background: var(--mantine-color-violet-light);
   }
 
   &[data-active='true'] {
-    color: var(--mantine-primary-color-filled, #1c7ed6);
+    color: var(--mantine-color-violet-light-color);
     font-weight: 500;
   }
 `;
@@ -194,7 +194,7 @@ const ActiveIndicator = styled(motion.div)`
   position: absolute;
   inset: 0;
   border-radius: var(--mantine-radius-sm);
-  background: var(--mantine-primary-color-light, #e7f5ff);
+  background: var(--mantine-color-violet-light);
   z-index: -1;
 `;
 

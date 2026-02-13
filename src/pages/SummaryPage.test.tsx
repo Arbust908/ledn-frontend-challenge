@@ -1,5 +1,5 @@
 // Written by Kimi K2.5
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import type { Planet } from '../types';
 import SummaryPage from './SummaryPage';
@@ -102,8 +102,13 @@ function renderPage() {
 
 describe('SummaryPage', () => {
   beforeEach(() => {
+    jest.useFakeTimers();
     jest.clearAllMocks();
     mockUsePlanets.mockReturnValue({ data: testPlanets, isLoading: false });
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   it('renders "Planets" heading', () => {
@@ -136,6 +141,7 @@ describe('SummaryPage', () => {
     fireEvent.change(screen.getByTestId('search-input'), {
       target: { value: 'Hoth' },
     });
+    act(() => { jest.advanceTimersByTime(300); });
 
     expect(screen.getByTestId('planet-card-2')).toBeInTheDocument();
     expect(screen.queryByTestId('planet-card-1')).not.toBeInTheDocument();
@@ -172,6 +178,7 @@ describe('SummaryPage', () => {
     fireEvent.change(screen.getByTestId('search-input'), {
       target: { value: 'Coruscant' },
     });
+    act(() => { jest.advanceTimersByTime(300); });
 
     expect(screen.queryByTestId('planet-card-1')).not.toBeInTheDocument();
     expect(screen.queryByTestId('planet-card-2')).not.toBeInTheDocument();
@@ -190,6 +197,7 @@ describe('SummaryPage', () => {
     fireEvent.change(screen.getByTestId('search-input'), {
       target: { value: 'Tatoo' },
     });
+    act(() => { jest.advanceTimersByTime(300); });
 
     expect(screen.getByTestId('planet-card-1')).toBeInTheDocument();
     expect(screen.getByTestId('planet-card-2')).toBeInTheDocument();
