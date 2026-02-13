@@ -14,6 +14,8 @@ npm start
 
 Once the app is running, you can access it in your browser at `http://localhost:3000`. The mock API server is integrated and will automatically serve data to the frontend.
 
+Alternatively you can test the app at [This page](https://arbust908.github.io/ledn-frontend-challenge/)
+
 ---
 
 ## Manual Verification Checklist
