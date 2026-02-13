@@ -5,12 +5,12 @@ import type { Transaction } from '../types';
 import TransactionRow from './TransactionRow';
 import { BREAKPOINTS } from '../utils/constants';
 
-const ScrollContainer = styled.div`
-  max-height: 70vh;
+const ScrollContainer = styled.div<{ $maxHeight: string; $mobileMaxHeight?: string }>`
+  max-height: ${({ $maxHeight }) => $maxHeight};
   overflow-y: auto;
 
   @media (max-width: ${BREAKPOINTS.TABLET}) {
-    max-height: calc(100vh - 378px);
+    max-height: ${({ $mobileMaxHeight, $maxHeight }) => $mobileMaxHeight ?? $maxHeight};
   }
 `;
 
@@ -60,11 +60,13 @@ const StyledTable = styled.table`
 
 interface TransactionsTableProps {
   transactions: Transaction[];
+  maxHeight?: string;
+  mobileMaxHeight?: string;
 }
 
-function TransactionsTable({ transactions }: TransactionsTableProps) {
+function TransactionsTable({ transactions, maxHeight = '70vh', mobileMaxHeight }: TransactionsTableProps) {
   return (
-    <ScrollContainer>
+    <ScrollContainer $maxHeight={maxHeight} $mobileMaxHeight={mobileMaxHeight}>
       <StyledTable>
         <thead>
           <tr>

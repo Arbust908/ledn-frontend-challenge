@@ -175,7 +175,7 @@ function TransactionsPage() {
       {isLoading ? (
         <SkeletonRows />
       ) : (
-        <TransactionsTable transactions={filteredTransactions} />
+        <TransactionsTable transactions={filteredTransactions} mobileMaxHeight="calc(100vh - 378px)" />
       )}
     </Container>
   );

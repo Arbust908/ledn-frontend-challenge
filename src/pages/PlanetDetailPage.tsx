@@ -280,7 +280,7 @@ function PlanetDetailPage() {
           ) : transactions?.length === 0 ? (
             <TagText>No transactions found for residents of this planet.</TagText>
           ) : (
-            <TransactionsTable transactions={filteredTransactions} />
+            <TransactionsTable transactions={filteredTransactions} maxHeight="45vh" mobileMaxHeight="75vh" />
           )}
         </Card>
       </TableCardWrapper>
