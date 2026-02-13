@@ -1,14 +1,14 @@
-# React Query Cache Configuration
+# Tan Stack Query Cache Configuration
 
 ## Context
-Centralized cache configuration for React Query hooks. Defines staleTime and gcTime based on data change frequency and usage patterns. This optimizes network requests and memory usage.
+Centralized cache configuration for Tan Stack Query hooks. Defines staleTime and gcTime based on data change frequency and usage patterns. This optimizes network requests and memory usage.
 
 ## Dependencies
 None (pure configuration constants).
 
 ## Prompt
 
-> Create a centralized cache configuration file for React Query that defines staleTime and gcTime constants based on data change frequency.
+> Create a centralized cache configuration file for Tan Stack Query that defines staleTime and gcTime constants based on data change frequency.
 >
 > **Create `src/config/staleTime.ts`:**
 >
@@ -43,11 +43,11 @@ None (pure configuration constants).
 > - The data classification (what changes when)
 > - Why exchange rate is 0 (updates every second in server.ts)
 > - The 5x rule for gcTime vs staleTime
-> - What staleTime and gcTime mean in React Query context
+> - What staleTime and gcTime mean in Tan Stack Query context
 >
 > **Example structure:**
 > ```typescript
-> // Centralized cache configuration for React Query hooks
+> // Centralized cache configuration for Tan Stack Query hooks
 > // Based on data change frequency and usage patterns
 >
 > /**
@@ -64,7 +64,7 @@ None (pure configuration constants).
 > } as const;
 > ```
 >
-> **React Query Context:**
+> **Tan Stack Query Context:**
 > - `staleTime`: How long data is considered "fresh" (won't refetch during this time)
 > - `gcTime` (formerly cacheTime): How long unused data stays in memory before garbage collection
 

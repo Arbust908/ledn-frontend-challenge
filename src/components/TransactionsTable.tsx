@@ -1,5 +1,6 @@
 // Written by ClaudeCode. Edited by hand for better logic
 import styled from 'styled-components';
+import { AnimatePresence } from 'motion/react';
 import type { Transaction } from '../types';
 import TransactionRow from './TransactionRow';
 import { BREAKPOINTS } from '../utils/constants';
@@ -16,10 +17,6 @@ const StyledTable = styled.table`
 
   th {
     font-weight: 600;
-    background: var(--mantine-color-default);
-  }
-
-  tbody tr:nth-child(even) {
     background: var(--mantine-color-default);
   }
 
@@ -65,9 +62,11 @@ function TransactionsTable({ transactions }: TransactionsTableProps) {
         </tr>
       </thead>
       <tbody>
-        {transactions.map((transaction) => (
-          <TransactionRow key={transaction.id} transaction={transaction} />
-        ))}
+        <AnimatePresence mode="popLayout">
+          {transactions.map((transaction) => (
+            <TransactionRow key={transaction.id} transaction={transaction} />
+          ))}
+        </AnimatePresence>
       </tbody>
     </StyledTable>
   );

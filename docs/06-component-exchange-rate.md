@@ -1,7 +1,7 @@
 # ExchangeRateDisplay Component
 
 ## Context
-Displays the current exchange rate between ICS and GCS currencies. Updates every second via React Query. Shows a skeleton loader during initial load.
+Displays the current exchange rate between ICS and GCS currencies. Updates every second via Tan Stack Query. Shows a skeleton loader during initial load.
 
 ## Dependencies
 - `src/hooks/useExchangeRate.ts`

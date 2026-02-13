@@ -1,6 +1,7 @@
 {
   "name": "ledn-frontend-challenge",
   "version": "0.1.0",
+  "homepage": "https://arbust908.github.io/ledn-frontend-challenge",
   "private": true,
   "dependencies": {
     "@mantine/core": "7.13.4",

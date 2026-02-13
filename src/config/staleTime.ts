@@ -1,5 +1,5 @@
 // Made by ClaudeCode
-// Centralized cache configuration for React Query hooks
+// Centralized cache configuration for Tan Stack Query hooks
 // Based on data change frequency and usage patterns
 
 /**

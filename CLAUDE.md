@@ -20,7 +20,7 @@ npx react-scripts test --testPathPattern="path/to/file"  # Run specific test
 ### Technology Stack
 - **Framework:** React 18 (Create React App), TypeScript 5.6
 - **UI:** Mantine 7 theme tokens via CSS variables, custom styled-components (NO Mantine UI components)
-- **State/API:** React Query 5, axios
+- **State/API:** Tan Stack Query 5, axios
 - **Routing:** react-router-dom 6
 - **Financial:** decimal.js for all monetary calculations
 - **Testing:** Jest + React Testing Library
@@ -73,7 +73,7 @@ This prevents:
 
 ### Entry Points
 - `src/index.tsx` — initializes MirageJS server, renders App
-- `src/App.tsx` — React Query provider, Mantine theme, color scheme detection
+- `src/App.tsx` — Tan Stack Query provider, Mantine theme, color scheme detection
 
 ---
 
@@ -82,7 +82,7 @@ This prevents:
 ### ❌ NEVER DO THESE
 1. **Modify** `src/server.ts` or `src/mockData/` - treat as external services
 2. **Use Mantine UI components** - custom styled-components only
-3. **Raw `useEffect` data fetching** - React Query exclusively
+3. **Raw `useEffect` data fetching** - Tan Stack Query exclusively
 4. **Native number math for financials** - `decimal.js` required
 5. **Add UI component libraries** - other libraries may be added to package.json, but NOT UI component libraries
 
@@ -123,9 +123,9 @@ const Decimal = require('decimal.js');
 
 ## Implementation Patterns
 
-### API Integration (React Query ONLY)
+### API Integration (Tan Stack Query ONLY)
 ```typescript
-// ✅ Correct: React Query for all API calls
+// ✅ Correct: Tan Stack Query for all API calls
 const { data, isLoading, error } = useQuery({
   queryKey: ['transactions', userId],
   queryFn: () => fetchTransactions(userId)
@@ -210,7 +210,7 @@ Before marking any task complete:
 - [ ] Tests pass (run `npx react-scripts test --watchAll=false`)
 - [ ] Responsive design works on small screens (320px)
 - [ ] Financial calculations use `decimal.js`
-- [ ] API calls use React Query hooks
+- [ ] API calls use Tan Stack Query hooks
 - [ ] No Mantine UI components imported
 - [ ] Mock backend files untouched (`src/server.ts`, `src/mockData/`)
 - [ ] Custom components built from scratch (especially filter component)
