@@ -245,7 +245,7 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { id: 'summary', label: 'Summary', to: '/', match: (p) => p === '/' },
-  { id: 'planets', label: 'Planets', to: '/planets/1', match: (p) => p.startsWith('/planets') },
+  { id: 'planets', label: 'Planets', to: '/', match: (p) => p.startsWith('/planets') }, // This will match when on a planet page, but if clicked will take you to summary to select a planet
   { id: 'transactions', label: 'Transactions', to: '/transactions', match: (p) => p.startsWith('/transactions') },
 ];
 

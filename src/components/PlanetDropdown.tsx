@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import styled from 'styled-components';
+import { ChevronDown } from 'lucide-react';
 import type { Planet } from '../types';
 
 interface PlanetDropdownProps {
@@ -8,6 +9,11 @@ interface PlanetDropdownProps {
   planets: Planet[];
   isLoading?: boolean;
 }
+
+const Wrapper = styled.div`
+  position: relative;
+  display: inline-grid;
+`;
 
 const Select = styled.select`
   padding: 6px 32px 6px 12px;
@@ -19,9 +25,6 @@ const Select = styled.select`
   font-family: var(--mantine-font-family);
   cursor: pointer;
   appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23868e96' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
   min-width: 0;
 
   &:focus-visible {
@@ -35,6 +38,17 @@ const Select = styled.select`
   }
 `;
 
+const IconWrapper = styled.div`
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--mantine-color-dimmed);
+  display: grid;
+  place-items: center;
+`;
+
 function PlanetDropdown({ value, onChange, planets, isLoading }: PlanetDropdownProps) {
   const sortedPlanets = useMemo(
     () => [...planets].sort((a, b) => a.name.localeCompare(b.name)),
@@ -42,19 +56,24 @@ function PlanetDropdown({ value, onChange, planets, isLoading }: PlanetDropdownP
   );
 
   return (
-    <Select
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      disabled={isLoading}
-      aria-label="Filter by planet"
-    >
-      <option value="">All Planets</option>
-      {sortedPlanets.map((planet) => (
-        <option key={planet.id} value={planet.id}>
-          {planet.name}
-        </option>
-      ))}
-    </Select>
+    <Wrapper>
+      <Select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        disabled={isLoading}
+        aria-label="Filter by planet"
+      >
+        <option value="">All Planets</option>
+        {sortedPlanets.map((planet) => (
+          <option key={planet.id} value={planet.id}>
+            {planet.name}
+          </option>
+        ))}
+      </Select>
+      <IconWrapper>
+        <ChevronDown size={14} />
+      </IconWrapper>
+    </Wrapper>
   );
 }
 
